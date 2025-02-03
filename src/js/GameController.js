@@ -131,8 +131,6 @@ export default class GameController {
   onCellEnter(index) {
     
     if (cellChecker(index)){
-
-      const selectedCharacter = cellChecker(index)[0];
       const characterObj = cellChecker(index)[1];
 
       const character = characterObj.character;

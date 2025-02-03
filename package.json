@@ -1,0 +1,41 @@
+{
+  "name": "ajs_diploma",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/jolshin/ajs_diploma#readme",
+  "bugs": {
+    "url": "https://github.com/jolshin/ajs_diploma/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jolshin/ajs_diploma.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest --coverage --env=jsdom",
+    "lint": "eslint .",
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "@babel/core": "^7.26.7",
+    "@babel/preset-env": "^7.26.7",
+    "@eslint/js": "^9.19.0",
+    "babel-loader": "^9.2.1",
+    "core-js": "^3.40.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
+    "html-webpack-plugin": "^5.6.3",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "lodash": "^4.17.21",
+    "mini-css-extract-plugin": "^2.9.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
+  }
+}
