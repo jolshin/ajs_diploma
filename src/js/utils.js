@@ -12,6 +12,7 @@ import GameState from "./GameState.js";
 
 import { generateTeam } from "./generators";
 
+//returns an object with characters and distances of move and attck
 export function actionDistance(action, character) {
   const actions = {
     move : { 
@@ -36,6 +37,9 @@ export function actionDistance(action, character) {
   return actions[action][character]
 }
 
+
+//returns an object of teams (left or right side) with arrays of available start positions (limits) 
+// where characters of teams could be placed
 export function teams(boardSize = 8) {
   return { 
     left : {
@@ -49,6 +53,7 @@ export function teams(boardSize = 8) {
   }
 }
 
+//it was here 
 export function calcTileType(index, boardSize) {
 
   if (boardSize < 3 ) {
@@ -92,6 +97,7 @@ export function calcTileType(index, boardSize) {
 
 }
 
+//it was here
 export function calcHealthLevel(health) {
   if (health < 15) {
     return 'critical';
@@ -104,10 +110,12 @@ export function calcHealthLevel(health) {
   return 'high';
 }
 
+//returns random number in the range from 0 to the 'top' parameter 
 export function randomNum(top) {
   return Math.floor(Math.random() * (top))
 }
 
+//returns limits of available positions for each team (side), is used in teams() function
 export function startPositionLimits(align, boardSize) {
   let acceptablePositions = [];
   
@@ -123,6 +131,7 @@ export function startPositionLimits(align, boardSize) {
   return acceptablePositions
 }
 
+//returns an array of available positions for characters move
 export function moveRange(index, boardSize, distance) {
   if (distance > boardSize - 2) {
     throw new Error("Distance can't be equal or only 2 squares less than the board size")
@@ -167,6 +176,7 @@ export function moveRange(index, boardSize, distance) {
   return availablePositions;
 }
 
+//returns an array of available positions for characters attack
 export function attackRange(index, boardSize, distance) {
   if (distance > boardSize - 2) {
     throw new Error("Distance can't be equal or only 2 squares less than the board size")
@@ -213,6 +223,7 @@ export function attackRange(index, boardSize, distance) {
   return availablePositions;
 }
 
+//prepares arguments for the new PositionedCharacter() class constructor, then creates an objects and stored it all in the GameState
 export function charactersMaker(boardSize) {
   let positions = [];
   let randomCounter = [];
@@ -243,6 +254,8 @@ export function charactersMaker(boardSize) {
   GameState.positionedCharacter = positions
 }
 
+//checks if there anything in the cell when the cell is clicked or entered
+// retruns object (character) if this object in this particular cell
 export function cellChecker(index) {
   for (let i = 0; i < GameState.positionedCharacter.length; i++){
     if (index === GameState.positionedCharacter[i].position & GameState.positionedCharacter[i].status != 'dead') {
@@ -251,6 +264,7 @@ export function cellChecker(index) {
   }  
 }
 
+//sets some of parameter of the GameState to null, is used when turn is over
 export function gameStateToNull() {
   GameState.selectedCharacter = null;
   GameState.selectedCell = null;
@@ -258,6 +272,7 @@ export function gameStateToNull() {
   GameState.moveRange = null;
 }
 
+//makes opponents move, plays for the right side team
 export function bot() {
   const enemies = [];
   const characters = [];
@@ -311,10 +326,12 @@ export function bot() {
 
 }
 
+//returns array of available maps
 export function maps() {
   return ['prairie', 'desert', 'arctic', 'mountain']
 }
 
+//levelUp - as it is described in the task
 export function levelUp() {
   for (let characterObj of GameState.positionedCharacter) {
     characterObj.status = 'no';
@@ -329,7 +346,7 @@ export function levelUp() {
       characterObj.character.health = 50;
     }}};
 
-
+//heals characters if player loses and new game starts
 export function heal() {
   for (let characterObj of GameState.positionedCharacter) {
     characterObj.status = 'no';
@@ -339,6 +356,7 @@ export function heal() {
       characterObj.character.health = 50;
     }}};
 
+//makes random positions for each character, limited by the start positions 
 export function randomPositionedCharacter() {
 
   let randomCounter = [];
@@ -353,6 +371,7 @@ export function randomPositionedCharacter() {
   }
 }
 
+//initiates new game (except first game which is initiated by the init() method of the GamePlay)
 export function newGame(winner, restart = false) {
 
   if (winner === 'left') {
@@ -409,6 +428,7 @@ export function newGame(winner, restart = false) {
 
 }
 
+//checks if there are characters at any of sides and calls newGame()
 export function gameOver() {
   const enemies = [];
   const characters = [];
@@ -429,6 +449,7 @@ export function gameOver() {
   }
 }
 
+//toggles turn between sides by counting characters which done those move
 export function turnToggle() {
   let turnCounter = 0;
   let teamCharacters = 0;
